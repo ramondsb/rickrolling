@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+
+    "name": "Rickrolling",
+    "description": "Never gonna be rick rolled again!",
+    "version": "0.0.0",
+
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content_script.js"]
+        }
+    ]
+}
