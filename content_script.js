@@ -1,6 +1,7 @@
 function isRickURL(url) {
-    // TODO: Implement function
-    return true;
+    var RICK_URL = 'dQw4w9WgXcQ';
+
+    return url.indexOf(RICK_URL) !== -1 ? true: false;
 }
 
 function markElement(element) {
