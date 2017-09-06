@@ -1,7 +1,12 @@
 function isRickURL(url) {
-    var RICK_URL = 'dQw4w9WgXcQ';
+    var RICK_URLS = ['dQw4w9WgXcQ', 'oHg5SJYRHA0'];
 
-    return url.indexOf(RICK_URL) !== -1 ? true: false;
+    for(var rick_url of RICK_URLS) {
+        if (url.indexOf(rick_url) !== -1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function markElement(element) {
