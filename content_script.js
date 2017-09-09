@@ -39,24 +39,26 @@ function checkAndMark(links) {
     }
 }
 
-
-var observer = new MutationObserver(function(mutations) {
- mutations.forEach(function(mutation) {
-   for (var i = 0; i < mutation.addedNodes.length; i++)
-     var node = mutation.addedNodes[i];
-     if (node) {
-         var aList = node.querySelectorAll('a');
-         if (aList.length > 0) {
-            checkAndMark(aList);
+function setMutationObserver() {
+    var observer = new MutationObserver(function(mutations) {
+     mutations.forEach(function(mutation) {
+       for (var i = 0; i < mutation.addedNodes.length; i++)
+         var node = mutation.addedNodes[i];
+         if (node) {
+             var aList = node.querySelectorAll('a');
+             if (aList.length > 0) {
+                checkAndMark(aList);
+             }
          }
-     }
- })
-});
+     })
+    });
 
+    observer.observe(document, { childList: true, subtree: true, characterData: true });
+}
 
 function onLoadPage() {
-  markLinks();
-  observer.observe(document, { childList: true, subtree: true, characterData: true });
+    markLinks();
+    setMutationObserver();
 }
 
 onLoadPage();
