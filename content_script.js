@@ -10,7 +10,7 @@ function isRickURL(url) {
     return false;
 }
 
-function markElement(element) {
+function markLink(link) {
     // Create span element
     var span = document.createElement('span');
     // TODO: Move CSS styling to own file.
@@ -21,7 +21,7 @@ function markElement(element) {
     span.appendChild(spanText);
 
     // Append span to a link
-    element.appendChild(span);
+    link.appendChild(span);
 }
 
 function markLinks() {
@@ -37,7 +37,7 @@ function checkAndMark(links) {
     for (var link of links) {
         if (isRickURL(link.href)) {
             // Mark element
-            markElement(link);
+            markLink(link);
         }
     }
 }
