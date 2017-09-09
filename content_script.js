@@ -25,7 +25,11 @@ function markLinks() {
     // find link elements
     var hrefs = [];
     var links = document.links;
+    checkAndMark(links);
 
+}
+
+function checkAndMark(links) {
     // TODO: Need verification when links is empty?
     for (var link of links) {
         if (isRickURL(link.href)) {
@@ -35,4 +39,24 @@ function markLinks() {
     }
 }
 
-markLinks();
+
+var observer = new MutationObserver(function(mutations) {
+ mutations.forEach(function(mutation) {
+   for (var i = 0; i < mutation.addedNodes.length; i++)
+     var node = mutation.addedNodes[i];
+     if (node) {
+         var aList = node.querySelectorAll('a');
+         if (aList.length > 0) {
+            checkAndMark(aList);
+         }
+     }
+ })
+});
+
+
+function onLoadPage() {
+  markLinks();
+  observer.observe(document, { childList: true, subtree: true, characterData: true });
+}
+
+onLoadPage();
