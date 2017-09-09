@@ -48,7 +48,7 @@ function setMutationObserver() {
         mutations.forEach(function(mutation) {
             for (var i = 0; i < mutation.addedNodes.length; i++)
             var node = mutation.addedNodes[i];
-            if (node) {
+            if (node && node.nodeType === Node.ELEMENT_NODE) {
                 var aList = node.querySelectorAll('a');
                 if (aList.length > 0) {
                     checkAndMark(aList);
