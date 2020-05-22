@@ -19,13 +19,6 @@ function markLink(link) {
   link.appendChild(span);
 }
 
-function markLinks() {
-  // TODO: Make document a function parameter
-  // find link elements
-  const { links } = document;
-  checkAndMark(Array.from(links));
-}
-
 function checkAndMark(links) {
   // TODO: Need verification when links is empty?
   links.forEach((link) => {
@@ -36,11 +29,18 @@ function checkAndMark(links) {
   });
 }
 
+function markLinks() {
+  // TODO: Make document a function parameter
+  // find link elements
+  const { links } = document;
+  checkAndMark(Array.from(links));
+}
+
 function setMutationObserver() {
   // TODO: Make document a function parameter
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
-      for (let i = 0; i < mutation.addedNodes.length; i++) {
+      for (let i = 0; i < mutation.addedNodes.length; i += 1) {
         const node = mutation.addedNodes[i];
         if (node && node.nodeType === Node.ELEMENT_NODE) {
           const aList = node.querySelectorAll('a');
