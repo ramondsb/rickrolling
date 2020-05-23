@@ -29,13 +29,6 @@ function checkAndMark(links) {
   });
 }
 
-function markLinks() {
-  // TODO: Make document a function parameter
-  // find link elements
-  const { links } = document;
-  checkAndMark(Array.from(links));
-}
-
 function setMutationObserver() {
   // TODO: Make document a function parameter
   const observer = new MutationObserver((mutations) => {
@@ -61,8 +54,8 @@ function setMutationObserver() {
 }
 
 function onLoadPage() {
-  markLinks();
   setMutationObserver();
 }
 
+// NOTE: With the option "run_at: document_start" in the manifest.json. This js will be load before any DOM modification occurs.
 onLoadPage();
