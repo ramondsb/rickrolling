@@ -6,16 +6,24 @@ function isRickURL(url, rickUrls) {
 }
 
 function markLink(link) {
-  // Create span element
+  const spanStyle = `
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    position: absolute;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    line-height:15px`;
   const span = document.createElement('span');
-  // TODO: Move CSS styling to own file.
-  const spanStyle = 'border-radius: 10px; background-color: red;color: white;text-align: center;position: absolute;font-size: 10px; width: 15px;height: 15px;line-height:15px';
-  span.setAttribute('style', spanStyle);
-  // TODO: Add identifier to the added element for posterior remotion when inactivate extension
-  const spanText = document.createTextNode('!');
-  span.appendChild(spanText);
+  const spanContent = document.createTextNode('!');
 
-  // Append span to a link
+  span.setAttribute('style', spanStyle);
+  span.setAttribute('data-rick-link', true);
+  span.appendChild(spanContent);
+
+  // Append an exclamation sign next to rickrolling link
   link.appendChild(span);
 }
 
