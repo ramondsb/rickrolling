@@ -29,24 +29,13 @@ function checkAndMark(links) {
   });
 }
 
-function setMutationObserver() {
-  // TODO: Make document a function parameter
+function setMutationObserver(element, onMutation) {
   const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      for (let i = 0; i < mutation.addedNodes.length; i += 1) {
-        const node = mutation.addedNodes[i];
-        if (node && node.nodeType === Node.ELEMENT_NODE) {
-          const aList = node.querySelectorAll('a');
-          if (aList.length > 0) {
-            checkAndMark(Array.from(aList));
-          }
-        }
-      }
-    });
+    mutations.forEach(onMutation);
   });
 
-  // TODO: Check all options I need to use in config
-  observer.observe(document, {
+  // TODO: Check config options
+  observer.observe(element, {
     childList: true,
     subtree: true,
     characterData: true,
@@ -54,8 +43,21 @@ function setMutationObserver() {
 }
 
 function onLoadPage() {
-  setMutationObserver();
+  function onMutation(mutation) {
+    for (let i = 0; i < mutation.addedNodes.length; i += 1) {
+      const node = mutation.addedNodes[i];
+      if (node && node.nodeType === Node.ELEMENT_NODE) {
+        const aList = node.querySelectorAll('a');
+        if (aList.length > 0) {
+          checkAndMark(Array.from(aList));
+        }
+      }
+    }
+  }
+
+  setMutationObserver(document, onMutation);
 }
 
-// NOTE: With the option "run_at: document_start" in the manifest.json. This js will be load before any DOM modification occurs.
+// NOTE: With the option "run_at: document_start" in the manifest.json.
+// This js will be load before any DOM modification occurs.
 onLoadPage();
