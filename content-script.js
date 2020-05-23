@@ -1,7 +1,7 @@
-function isRickURL(url) {
-  // TODO: Search for top 5 most popular Rick videos on Youtube.
-  const rickUrls = ['dQw4w9WgXcQ', 'oHg5SJYRHA0'];
+// TODO: Search for top 5 most popular Rick videos on Youtube.
+const rickUrls = ['dQw4w9WgXcQ', 'oHg5SJYRHA0'];
 
+function isRickURL(url, rickUrls) {
   return rickUrls.some((rickUrl) => url.includes(rickUrl));
 }
 
@@ -22,7 +22,7 @@ function markLink(link) {
 function checkAndMark(links) {
   // TODO: Need verification when links is empty?
   links.forEach((link) => {
-    if (isRickURL(link.href)) {
+    if (isRickURL(link.href, rickUrls)) {
       // Mark element
       markLink(link);
     }
