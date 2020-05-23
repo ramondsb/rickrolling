@@ -28,13 +28,14 @@ function markLink(link) {
 }
 
 function checkAndMark(links) {
-  // TODO: Need verification when links is empty?
-  links.forEach((link) => {
-    if (isRickURL(link.href, rickUrls)) {
-      // Mark element
-      markLink(link);
-    }
-  });
+  if (links && links.length > 0) {
+    links.forEach((link) => {
+      if (isRickURL(link.href, rickUrls)) {
+        // Mark element
+        markLink(link);
+      }
+    });
+  }
 }
 
 function setMutationObserver(element, onMutation) {
@@ -52,15 +53,16 @@ function setMutationObserver(element, onMutation) {
 
 function onLoadPage() {
   function onMutation(mutation) {
-    for (let i = 0; i < mutation.addedNodes.length; i += 1) {
-      const node = mutation.addedNodes[i];
-      if (node && node.nodeType === Node.ELEMENT_NODE) {
-        const aList = node.querySelectorAll('a');
-        if (aList.length > 0) {
-          checkAndMark(Array.from(aList));
-        }
-      }
-    }
+    const addedNodes = Array
+      .from(mutation.addedNodes)
+      .filter((n) => n.nodeType === Node.ELEMENT_NODE);
+    const addedLinks = addedNodes
+      .map((n) => Array.from(n.querySelectorAll('a')))
+      .filter((l) => l.length > 0);
+    const collectedLinks = addedLinks
+      .reduce((acc, links) => acc.concat(links), []);
+
+    checkAndMark(collectedLinks);
   }
 
   setMutationObserver(document, onMutation);
