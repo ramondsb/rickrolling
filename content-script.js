@@ -1,4 +1,4 @@
-// TODO: Search for top 5 most popular Rick videos on Youtube.
+// A list of well known and used Rick Roll Youtube videos. This should be enough to catch most RR cases.
 const rickUrls = ['dQw4w9WgXcQ', 'oHg5SJYRHA0'];
 
 function isRickURL(url, rickUrls) {
